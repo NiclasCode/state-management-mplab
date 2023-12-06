@@ -26,6 +26,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import de.hhn.tictactoe.controller.TikTakToeViewModel
 import de.hhn.tictactoe.ui.theme.TicTacToeTheme
 import de.hhn.tictactoe.view.HomeScreen
 
@@ -35,6 +37,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             TicTacToeTheme {
+                val viewModel:TikTakToeViewModel = viewModel()
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -56,7 +59,7 @@ class MainActivity : ComponentActivity() {
                                 actions = {
                                     IconButton(
                                         onClick = {
-                                            // TODO:  
+                                            viewModel.resetGame()
                                         }
                                     ) {
                                         Icon(
@@ -87,21 +90,13 @@ class MainActivity : ComponentActivity() {
                                 .padding(values)
                         ){
                             item {
-                                HomeScreen()
+                                HomeScreen(viewModel)
                             }
                         }
                     }
 
                 }
             }
-        }
-    }
-
-    @Preview(showBackground = true)
-    @Composable
-    fun DefaultPreview() {
-        TicTacToeTheme {
-            HomeScreen()
         }
     }
 }
